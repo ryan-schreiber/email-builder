@@ -73,7 +73,7 @@ email = (
     .to("recipient.1@company.com")
     .to("recipient.2@company.com")
     .subject("test email sent from my python lib")
-    .html("<h1> hello world </h1>")
+    .markdown("# hello world")
     .attachment(email_builder.Attachment("report.csv", data))
     .attachment(email_builder.Attachment("test2.json", """{"key": "value"}"""))
 ).send(email_builder.clients.SES())
@@ -125,10 +125,13 @@ email = (
     .subject("test email sent from my python lib")
 
     # --- EMAIL BODY --- #
-    # you need to choose between either html or text, can't use both
+    # you need to choose between either html, markdown or text, can't use more than one
 
-    # html(body:str) -> renders the given html in the email body, no chaining
+    # html(data:str) -> renders the given html in the email body, no chaining
     .html("<h1> hello world </h1>")
+	
+	# markdown(body:str) -> renders the given markdown as html in the email body, no chaining
+    .markdown("# hello world")
 
     # test(body:str) -> adds the given text to the email body as plain text
     .text("hello world")

@@ -4,6 +4,7 @@ from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 from copy import deepcopy
+import markdown
 
 import email_builder.clients
 
@@ -53,6 +54,11 @@ class Email:
     return self
   
   def html(self, data):
+    self.__body.attach(MIMEText(data.encode(self.__charset), 'html', self.__charset))
+    return self
+    
+  def markdown(self, data):
+    data = markdown.markdown(data)
     self.__body.attach(MIMEText(data.encode(self.__charset), 'html', self.__charset))
     return self
   

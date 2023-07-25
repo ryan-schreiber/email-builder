@@ -8,7 +8,7 @@ with open('./README.md', 'r') as f:
 
 setup(
     name='easy-email-builder',
-    version='1.0.2',
+    version='1.0.3',
     description='Simple interface for sending emails with the builder design pattern with different services.',
     long_description=long_description,
     long_description_content_type='text/markdown',
