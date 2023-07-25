@@ -21,7 +21,8 @@ import email_builder
 ```python
 # builder syntax
 # when using gmail, you need an "App Password". follow this link if you need help creating that:
-# 
+# https://www.lifewire.com/get-a-password-to-access-gmail-by-pop-imap-2-1171882
+
 import email_builder
 
 client = email_builder.clients.Gmail(password="<gmail APP password>")
@@ -41,7 +42,7 @@ email.send(client)
 
 ```python
 # builder syntax 
-import etl_utils
+import email_builder
 
 # this SES class accepts a boto3 session if you want to customize the setup
 client = email_builder.clients.SES()
@@ -63,7 +64,7 @@ email.send(email_builder.clients.SES())
 import email_builder
 
 with open("report.csv", "rb") as f:
-  report_data = f.read()
+  data = f.read()
 
 client = email_builder.clients.SES()
 email = (
@@ -83,17 +84,20 @@ email = (
 ```python
 import email_builder
 
-# --- client types are SES or Gmail --- #
+with open("report.csv", "rb") as f:
+  data = f.read()
 
+# --- client types are SES or Gmail --- #
 # Amazon SES that can accept a session object as needed
 client = email_builder.clients.SES()
-#or
+# or
 import boto3
-session = boto3.Session(...)
+session = boto3.Session(region="us-west-2", etc)
 client = email_builder.clients.SES(session)
 
 # Gmail that accepts a password and options to configure port/url if needed
 client = email_builder.clients.SES(password="<password>")
+
 
 # --- email options --- #
 email = (
@@ -121,7 +125,7 @@ email = (
     .subject("test email sent from my python lib")
 
     # --- EMAIL BODY --- #
-    # need to choose between either html or text, can't use both
+    # you need to choose between either html or text, can't use both
 
     # html(body:str) -> renders the given html in the email body, no chaining
     .html("<h1> hello world </h1>")
@@ -138,4 +142,20 @@ email = (
 # result contains a dictionary with status in the body
 result = email.send(client)
 print(result)
+```
+
+Success result:
+```python
+{
+	"status": "passed",
+	"error": None
+}
+```
+
+Failure result:
+```python
+{
+	"status": "failed",
+	"error": Exception(...)
+}
 ```
