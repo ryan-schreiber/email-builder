@@ -7,7 +7,7 @@ with open('./README.md', 'r') as f:
     long_description = f.read()
 
 setup(
-    name='email-builder',
+    name='easy-email-builder',
     version='1.0',
     description='Simple interface for sending emails with the builder design pattern with different services.',
     long_description=long_description,
